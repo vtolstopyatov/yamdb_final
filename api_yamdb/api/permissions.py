@@ -33,6 +33,7 @@ class AdminAccessOnly(permissions.BasePermission):
                 request.user.is_superuser
                 or request.user.is_admin
             )
+        return False
 
 
 class ReadOnly(permissions.BasePermission):

@@ -1,13 +1,13 @@
 import datetime
-from django.db.models import Avg
-from django.shortcuts import get_object_or_404
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
+from django.db.models import Avg
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.validators import UniqueValidator
-
-from reviews.models import Genres, Categories, Title, Review, Comments
+from rest_framework_simplejwt.tokens import AccessToken
+from reviews.models import Categories, Comments, Genres, Review, Title
 
 User = get_user_model()
 
@@ -140,9 +140,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         request = self.context['request']
         author = request.user
         title_id = self.context['view'].kwargs.get('title_id')
-        TITLE = get_object_or_404(Title, pk=title_id)
+        title = get_object_or_404(Title, pk=title_id)
         if request.method == 'POST':
-            if Review.objects.filter(title=TITLE, author=author).exists():
+            if Review.objects.filter(title=title, author=author).exists():
                 raise serializers.ValidationError(
                     'Отзыв уже существует!Вы больше не можете добавлять отзыв')
         return data

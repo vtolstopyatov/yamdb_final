@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import User, Comments, Review, Title, Categories, Genres
 from django.contrib.auth.admin import UserAdmin
+
+from .models import Categories, Comments, Genres, Review, Title, User
 
 
 class CustomUserAdmin(UserAdmin):

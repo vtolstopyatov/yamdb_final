@@ -1,23 +1,22 @@
+from api.filters import TitleFilter
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from django.contrib.auth import get_user_model
-from django.core.mail import send_mail
-from django.contrib.auth.tokens import default_token_generator
-from rest_framework import viewsets, mixins, filters, status, permissions
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import filters, mixins, permissions, status, viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from reviews.models import Categories, Genres, Review, Title
 
-from api.filters import TitleFilter
-from .permissions import (
-    ReadOnly, ModerateAccessOrReadOnly, AdminAccessOnly)
-from reviews.models import Title, Genres, Categories, Review
-from .serializers import (
-    TitleReadSerializer, TitleWriteSerializer, GenresSerializer,
-    CategoriesSerializer, GetTokenSerializer, ReviewSerializer,
-    CommentsSerializer, RegistrationSerializer,
-    UsersSerializer, UsersMeSerializer)
+from .permissions import AdminAccessOnly, ModerateAccessOrReadOnly, ReadOnly
+from .serializers import (CategoriesSerializer, CommentsSerializer,
+                          GenresSerializer, GetTokenSerializer,
+                          RegistrationSerializer, ReviewSerializer,
+                          TitleReadSerializer, TitleWriteSerializer,
+                          UsersMeSerializer, UsersSerializer)
 
 User = get_user_model()
 
