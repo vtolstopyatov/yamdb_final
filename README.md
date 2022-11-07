@@ -5,4 +5,30 @@
 Вы можете добавить отзыв к произведению только один раз, а также комментарий к этому отзыву.
 Авторы: Толстопятов Владимир, Яппаров Рустам, Марковская Татьяна
 
-Документация к проекту доступна по адресу http://62.84.114.12/redoc/
+### Как запустить проект на сервере:
+
+- Перейти в папку с файлом docker-compose:
+```
+cd infra
+```
+- Запуск docker-compose:
+```
+docker-compose up -d --build
+```
+- Выполнить миграции:
+```
+docker-compose exec web python manage.py migrate
+```
+- Собрать статику:
+```
+docker-compose exec web python manage.py collectstatic --no-input
+```
+- На сервере остановите службу nginx:
+```
+sudo systemctl stop nginx
+```
+- Добавьте переменные окружения для GitHub Action:
+```
+Settings → Secrets → Actions → New repository secret
+```
+- После фиксации и отправки изменений в ветку main — проект запустится на сервере
